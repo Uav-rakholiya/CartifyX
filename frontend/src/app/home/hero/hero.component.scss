@@ -1,0 +1,62 @@
+.hero-container {
+    background-color: var(--dark-900, #0f172a);
+
+    /* Soft glowing backdrop */
+    &::before {
+        content: '';
+        position: absolute;
+        top: -20%;
+        left: -10%;
+        width: 60%;
+        height: 80%;
+        background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+    }
+}
+
+.hero-images-wrapper {
+    /* Ensure the floating card can break out of its container bounds */
+    overflow: visible;
+
+    /* Responsive adjustments for the layout overlap */
+    @media (max-width: 1023px) {
+        margin-top: 2rem;
+        margin-right: -1rem;
+        margin-left: 2rem;
+    }
+}
+
+/* Custom Outlined Button Style matching the reference */
+.btn-primary-outline {
+    background-color: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: white;
+        color: var(--dark-950, #020617);
+        border-color: white;
+    }
+}
+
+.product-showcase-card {
+    background: transparent;
+    /* Soft continuous floating animation for premium feel */
+    animation: floatingCard 6s ease-in-out infinite;
+}
+
+@keyframes floatingCard {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}

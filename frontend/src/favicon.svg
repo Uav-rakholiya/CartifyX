@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- White Background with Rounded Corners -->
+  <rect x="0" y="0" width="512" height="512" rx="100" ry="100" fill="white" />
+  
+  <!-- Group for Yellow Elements (#FDB813) -->
+  <g fill="#FFC107" transform="translate(60, 60) scale(0.8)">
+    
+    <!-- Shopping Cart Body -->
+    <path d="M100 100 L140 100 L180 300 L380 300 L420 140 L160 140" stroke="#FFC107" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M165 300 L395 300 L430 140 L150 140 Z" fill="#FFC107" opacity="0.3"/> <!-- Optional inner fill -->
+
+    <!-- Shopping Cart Handle (Left) -->
+    <path d="M40 100 L100 100 L140 300" stroke="#FFC107" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <!-- Wheels -->
+    <circle cx="180" cy="380" r="40" fill="#FFC107"/>
+    <circle cx="380" cy="380" r="40" fill="#FFC107"/>
+
+    <!-- The 'X' Mark (Top Right) -->
+    <g transform="translate(300, -50) scale(1.2)">
+      <path d="M20 0 L100 100" stroke="#FFC107" stroke-width="50" stroke-linecap="round" />
+      <path d="M100 0 L20 100" stroke="#FFC107" stroke-width="50" stroke-linecap="round" />
+    </g>
+  </g>
+</svg>

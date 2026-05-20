@@ -1,0 +1,21 @@
+<svg width="180" height="48" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="logoGradient" x1="0" y1="0" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+  </defs>
+
+  <!-- Stylized Icon (Modern Cart/Bag hybrid) -->
+  <g transform="translate(4, 4)">
+    <rect x="2" y="10" width="32" height="28" rx="6" fill="url(#logoGradient)" />
+    <path d="M12 12C12 7.58172 15.5817 4 20 4C24.4183 4 28 7.58172 28 12" stroke="url(#logoGradient)" stroke-width="3" stroke-linecap="round" />
+    <path d="M14 18H26M14 26H20" stroke="#020617" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+
+  <!-- Text -->
+  <text x="48" y="32" fill="white" style="font-family: 'Inter', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em;">
+    Cartify<tspan fill="url(#logoGradient)">X</tspan>
+  </text>
+</svg>

@@ -1,0 +1,165 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "urban-cart-frontend": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                }
+            },
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/urban-cart-frontend/browser",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": [
+                            "zone.js"
+                        ],
+                        "tsConfig": "tsconfig.app.json",
+                        "assets": [
+                            "src/favicon.svg",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "@angular/material/prebuilt-themes/indigo-pink.css",
+                            "src/style.css"
+                        ],
+                        "scripts": []
+                    },
+                    "configurations": {
+                        "production": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "500kb",
+                                    "maximumError": "1mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kb",
+                                    "maximumError": "4kb"
+                                }
+                            ],
+                            "outputHashing": "all",
+                            "optimization": true,
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true
+                        },
+                        "development": {
+                            "optimization": false,
+                            "extractLicenses": false,
+                            "sourceMap": true
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "configurations": {
+                        "production": {
+                            "buildTarget": "urban-cart-frontend:build:production"
+                        },
+                        "development": {
+                            "buildTarget": "urban-cart-frontend:build:development"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "buildTarget": "urban-cart-frontend:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ],
+                        "tsConfig": "tsconfig.spec.json",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "@angular/material/prebuilt-themes/indigo-pink.css",
+                            "src/style.css"
+                        ],
+                        "scripts": []
+                    }
+                },
+                "server": {
+                  "builder": "@angular-devkit/build-angular:server",
+                  "options": {
+                    "outputPath": "dist/urban-cart-frontend/server",
+                    "main": "server.ts",
+                    "tsConfig": "tsconfig.server.json"
+                  },
+                  "configurations": {
+                    "production": {
+                      "buildOptimizer": true,
+                      "outputHashing": "media",
+                      "optimization": true,
+                      "sourceMap": false,
+                      "extractLicenses": true,
+                      "vendorChunk": false
+                    },
+                    "development": {
+                      "optimization": false,
+                      "sourceMap": true,
+                      "extractLicenses": false
+                    }
+                  },
+                  "defaultConfiguration": "production"
+                },
+                "serve-ssr": {
+                  "builder": "@angular-devkit/build-angular:ssr-dev-server",
+                  "configurations": {
+                    "development": {
+                      "browserTarget": "urban-cart-frontend:build:development",
+                      "serverTarget": "urban-cart-frontend:server:development"
+                    },
+                    "production": {
+                      "browserTarget": "urban-cart-frontend:build:production",
+                      "serverTarget": "urban-cart-frontend:server:production"
+                    }
+                  },
+                  "defaultConfiguration": "development"
+                },
+                "prerender": {
+                  "builder": "@angular-devkit/build-angular:prerender",
+                  "options": {
+                    "routes": [
+                      "/"
+                    ]
+                  },
+                  "configurations": {
+                    "production": {
+                      "browserTarget": "urban-cart-frontend:build:production",
+                      "serverTarget": "urban-cart-frontend:server:production"
+                    },
+                    "development": {
+                      "browserTarget": "urban-cart-frontend:build:development",
+                      "serverTarget": "urban-cart-frontend:server:development"
+                    }
+                  },
+                  "defaultConfiguration": "production"
+                }
+            }
+        }
+    }
+}

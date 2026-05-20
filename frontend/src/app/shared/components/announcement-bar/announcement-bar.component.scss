@@ -1,0 +1,80 @@
+:host {
+    display: block;
+    /* Use a light/faint theme-adaptive background color (e.g., primary-500 with 10% opacity) */
+    --announcement-bg: var(--theme-announcement-bg, rgba(245, 158, 11, 0.08));
+    /* Adaptive text color (defaults to primary-500/amber on dark theme layouts) */
+    --announcement-text: var(--theme-announcement-text, #5d3c04);
+    --bar-height: 50px;
+    margin-bottom: 40px;
+    /* 40px margin spacing required above and below component */
+}
+
+.announcement-bar {
+    background-color: var(--announcement-bg);
+    color: var(--announcement-text);
+    height: var(--bar-height);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+    margin: 40px 0;
+    /* Add 40px vertical spacing to component root block */
+
+    /* Minimal luxury font styles */
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    /* Clean subtle borders */
+    border-top: 1px solid rgba(245, 158, 11, 0.15);
+    border-bottom: 1px solid rgba(245, 158, 11, 0.15);
+}
+
+.scrolling-content {
+    display: flex;
+    white-space: nowrap;
+    width: max-content;
+    /* Smooth, infinite scroll over 40sec for elegant feel */
+    animation: scrollText 40s linear infinite;
+    will-change: transform;
+    /* Ensure readable text on announcement background */
+    color: #5d3c04;
+}
+
+/* Pause on hover */
+.announcement-bar:hover .scrolling-content {
+    animation-play-state: paused;
+}
+
+.announcement-group {
+    display: flex;
+    align-items: center;
+    padding-right: 0rem;
+}
+
+.announcement-item {
+    padding: 0 2rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.separator {
+    color: var(--announcement-text);
+    opacity: 0.4;
+    font-size: 10px;
+    padding: 0 0.5rem;
+}
+
+@keyframes scrollText {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    /* -25% translates left exactly exactly width of one announcement group (4 total duplicate groups in DOM) */
+    100% {
+        transform: translate3d(-25%, 0, 0);
+    }
+}

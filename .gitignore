@@ -1,0 +1,9 @@
+node_modules/
+.angular/
+dist/
+frontend/dist/
+backend/dist/
+.env
+*.log
+mix-ecommerce-db-firebase-adminsdk-fbsvc-87c35ee7c2.json
+backend/firebase-service-account.json

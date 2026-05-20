@@ -1,0 +1,35 @@
+.btn-primary-outline {
+    background-color: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 9999px;
+    /* Pill shape for premium feel */
+
+    &:hover {
+        background-color: white;
+        color: var(--dark-950, #020617);
+        border-color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.2);
+    }
+}
+
+.glass-card {
+    /* Advanced glassmorphism tailored for dark mode */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    /* Soft continuous floating animation for premium feel */
+    animation: floatingCard 6s ease-in-out infinite alternate;
+    /* Ensure readable text inside faint glass surfaces */
+    color: #757575;
+}
+
+@keyframes floatingCard {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    100% {
+        transform: translateY(-15px) rotate(1.5deg);
+    }
+}

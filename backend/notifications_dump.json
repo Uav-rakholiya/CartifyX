@@ -1,0 +1,24 @@
+{
+  "unreadReplies": [
+    {
+      "id": "69917110161b7cd90421146d",
+      "subject": "Best for Shopping",
+      "replyPreview": "thanks"
+    },
+    {
+      "id": "6994a1f6ddf7e1c4d4c521fa",
+      "userId": "6994a1c0ddf7e1c4d4c521f6",
+      "subject": "Good items",
+      "replyPreview": "\nthanks"
+    },
+    {
+      "id": "6994a75be6c45af27b9b27f4",
+      "userId": "6994a1c0ddf7e1c4d4c521f6",
+      "subject": "good wishes",
+      "replyPreview": "thnks\n"
+    }
+  ],
+  "totalRepliesCount": 3,
+  "noUserMessagesCount": 7,
+  "envUriUsed": "mongodb://localhost:..."
+}

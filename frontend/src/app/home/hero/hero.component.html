@@ -1,0 +1,64 @@
+<div class="hero-container relative mx-4 mt-8 sm:mx-6 lg:mx-8 shadow-2xl overflow-hidden rounded-2xl">
+
+    <div class="hero-content grid grid-cols-1 lg:grid-cols-2 lg:gap-8 min-h-[70vh]">
+
+        <!-- LEFT SIDE: Typography and Call to Action -->
+        <div class="px-8 py-16 sm:px-16 lg:py-24 flex flex-col justify-center order-2 lg:order-1 relative z-20">
+
+            <span class="text-primary-400 font-semibold tracking-[0.15em] uppercase text-sm mb-4 animate-fade-in">
+                Our Collections
+            </span>
+
+            <h1
+                class="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1] tracking-tight animate-slide-up">
+                The Sweatshirts You'll <br> Use Again And Again.
+            </h1>
+
+            <p class="text-lg sm:text-xl text-gray-400 mb-10 max-w-lg leading-relaxed font-light animate-slide-up"
+                style="animation-delay: 100ms;">
+                Upgrade your wardrobe with a variety of styles and fits that blend comfort with modern fashion.
+            </p>
+
+            <div class="flex animate-slide-up" style="animation-delay: 200ms;">
+                <a routerLink="/products"
+                    class="btn-primary-outline inline-flex items-center px-10 py-4 text-sm font-bold tracking-wide uppercase">
+                    Shop All Products
+                </a>
+            </div>
+
+            <!-- Carousel Pagination Dots (Decorative) -->
+            <div class="flex gap-4 mt-16 animate-fade-in" style="animation-delay: 300ms;">
+                <span class="w-2.5 h-2.5 rounded-full bg-white opacity-100"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-white opacity-30"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-white opacity-30"></span>
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE: Images -->
+        <div class="relative order-1 lg:order-2 h-64 sm:h-96 lg:h-auto overflow-visible hero-images-wrapper">
+
+            <!-- Main Background Image matching reference layout -->
+            <div class="absolute inset-0 right-0 sm:-right-8 lg:-right-16 top-0 bottom-0 z-0">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1600&q=80"
+                    alt="Fashion Model Background"
+                    class="w-full h-full object-cover rounded-xl lg:rounded-l-3xl shadow-xl border border-dark-800">
+                <!-- Subtle gradient overlay to merge image with dark background -->
+                <div
+                    class="absolute inset-0 bg-gradient-to-r from-dark-900 via-transparent to-transparent opacity-80 lg:opacity-100 lg:w-3/4">
+                </div>
+            </div>
+
+            <!-- Floating Product Card overlapping the background image -->
+            <div class="absolute left-8 lg:-left-12 bottom-8 lg:top-1/2 lg:-translate-y-1/2 z-30">
+                <div class="product-showcase-card shadow-2xl animate-float">
+                    <div class="bg-white rounded-xl p-6 sm:p-10 w-48 sm:w-64 lg:w-80 h-auto">
+                        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80"
+                            alt="Green Polo Shirt" class="w-full h-full object-contain drop-shadow-md">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

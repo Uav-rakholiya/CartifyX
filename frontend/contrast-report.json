@@ -1,0 +1,261 @@
+{
+  "items": [
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\app\\home\\editorial-promo\\editorial-promo.component.scss",
+      "selector": ".btn-primary-outline",
+      "fg": [
+        2,
+        6,
+        23,
+        1
+      ],
+      "bg": [
+        255,
+        255,
+        255,
+        0.3
+      ],
+      "ratio": 20.17
+    },
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\app\\home\\editorial-promo\\editorial-promo.component.scss",
+      "selector": "}\r\n\r\n.glass-card",
+      "fg": [
+        117,
+        117,
+        117,
+        1
+      ],
+      "bg": [
+        255,
+        255,
+        255,
+        0.05
+      ],
+      "ratio": 4.61
+    },
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\app\\home\\hero\\hero.component.scss",
+      "selector": ".hero-container",
+      "fg": [
+        15,
+        23,
+        42,
+        1
+      ],
+      "bg": [
+        245,
+        158,
+        11,
+        0.05
+      ],
+      "ratio": 8.31
+    },
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\app\\home\\hero\\hero.component.scss",
+      "selector": "}\r\n\r\n/* Custom Outlined Button Style matching the reference */\r\n.btn-primary-outline",
+      "fg": [
+        2,
+        6,
+        23,
+        1
+      ],
+      "bg": [
+        255,
+        255,
+        255,
+        0.8
+      ],
+      "ratio": 20.17
+    },
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\app\\shared\\components\\announcement-bar\\announcement-bar.component.scss",
+      "selector": ":host",
+      "fg": [
+        93,
+        60,
+        4,
+        1
+      ],
+      "bg": [
+        245,
+        158,
+        11,
+        0.08
+      ],
+      "ratio": 4.63
+    },
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\app\\shared\\components\\announcement-bar\\announcement-bar.component.scss",
+      "selector": ".announcement-bar",
+      "fg": [
+        245,
+        158,
+        11,
+        0.15
+      ],
+      "bg": [
+        245,
+        158,
+        11,
+        0.15
+      ],
+      "ratio": 1
+    },
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\app\\shared\\components\\promo-section\\promo-section.component.scss",
+      "selector": "/* Use CSS variables for theme integration */\r\n:host",
+      "fg": [
+        93,
+        60,
+        4,
+        1
+      ],
+      "bg": [
+        245,
+        158,
+        11,
+        0.08
+      ],
+      "ratio": 4.63
+    },
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\app\\shared\\components\\promo-section\\promo-section.component.scss",
+      "selector": ".promo-btn-primary",
+      "fg": [
+        66,
+        66,
+        66,
+        1
+      ],
+      "bg": [
+        245,
+        158,
+        11,
+        0.5
+      ],
+      "ratio": 4.68
+    },
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\app\\shared\\components\\promo-section\\promo-section.component.scss",
+      "selector": "/* Glassmorphism Floating Product Card */\r\n.floating-card",
+      "fg": [
+        164,
+        106,
+        7,
+        1
+      ],
+      "bg": [
+        245,
+        158,
+        11,
+        0.05
+      ],
+      "ratio": 2.11
+    },
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\style.css",
+      "selector": "body",
+      "fg": [
+        15,
+        23,
+        42,
+        1
+      ],
+      "bg": [
+        2,
+        6,
+        23,
+        1
+      ],
+      "ratio": 1.13
+    },
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\style.css",
+      "selector": ".animate-ethereal-sweep",
+      "fg": [
+        200,
+        200,
+        200,
+        0.3
+      ],
+      "bg": [
+        200,
+        200,
+        200,
+        0.3
+      ],
+      "ratio": 1
+    }
+  ],
+  "failures": [
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\app\\shared\\components\\announcement-bar\\announcement-bar.component.scss",
+      "selector": ".announcement-bar",
+      "fg": [
+        245,
+        158,
+        11,
+        0.15
+      ],
+      "bg": [
+        245,
+        158,
+        11,
+        0.15
+      ],
+      "ratio": 1
+    },
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\app\\shared\\components\\promo-section\\promo-section.component.scss",
+      "selector": "/* Glassmorphism Floating Product Card */\r\n.floating-card",
+      "fg": [
+        164,
+        106,
+        7,
+        1
+      ],
+      "bg": [
+        245,
+        158,
+        11,
+        0.05
+      ],
+      "ratio": 2.11
+    },
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\style.css",
+      "selector": "body",
+      "fg": [
+        15,
+        23,
+        42,
+        1
+      ],
+      "bg": [
+        2,
+        6,
+        23,
+        1
+      ],
+      "ratio": 1.13
+    },
+    {
+      "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\style.css",
+      "selector": ".animate-ethereal-sweep",
+      "fg": [
+        200,
+        200,
+        200,
+        0.3
+      ],
+      "bg": [
+        200,
+        200,
+        200,
+        0.3
+      ],
+      "ratio": 1
+    }
+  ]
+}

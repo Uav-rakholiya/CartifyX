@@ -1,0 +1,34 @@
+[
+  {
+    "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\app\\shared\\components\\announcement-bar\\announcement-bar.component.scss",
+    "selector": ".announcement-bar",
+    "currentFg": "#f59e0b",
+    "bg": "#f59e0b",
+    "ratio": 1,
+    "suggestedFg": "#5d3c04"
+  },
+  {
+    "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\app\\shared\\components\\promo-section\\promo-section.component.scss",
+    "selector": "/* Glassmorphism Floating Product Card */\r\n.floating-card",
+    "currentFg": "#a46a07",
+    "bg": "#f59e0b",
+    "ratio": 2.11,
+    "suggestedFg": "#5f3d04"
+  },
+  {
+    "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\style.css",
+    "selector": "body",
+    "currentFg": "#0f172a",
+    "bg": "#020617",
+    "ratio": 1.13,
+    "suggestedFg": "#747883"
+  },
+  {
+    "file": "d:\\MY\\Angular Project\\cartifyX\\frontend\\src\\style.css",
+    "selector": ".animate-ethereal-sweep",
+    "currentFg": "#c8c8c8",
+    "bg": "#c8c8c8",
+    "ratio": 1,
+    "suggestedFg": "#545454"
+  }
+]

@@ -1,0 +1,14 @@
+<div class="announcement-bar">
+  <div class="scrolling-content">
+    <!-- Duplicate content multiple times to create a seamless infinite scroll -->
+    <ng-container *ngFor="let _ of [1, 2, 3, 4]">
+      <div class="announcement-group" aria-hidden="true">
+        <span *ngFor="let item of announcements" 
+              [class.separator]="item === '•'" 
+              class="announcement-item">
+          {{ item }}
+        </span>
+      </div>
+    </ng-container>
+  </div>
+</div>
