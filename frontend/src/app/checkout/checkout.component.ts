@@ -414,7 +414,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (rzpRes: any) => {
           const options = {
-            key: rzpRes.key || 'rzp_test_SGo9drf5bEblg3',
+            key: rzpRes.key || 'rzp_test_SwNSHtjQYiCenk',
             amount: rzpRes.order.amount,
             currency: 'INR',
             name: 'CartifyX',

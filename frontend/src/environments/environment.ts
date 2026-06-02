@@ -1,14 +1,15 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5003/api/v1',
+  apiUrl: 'https://cartifyx-backend.onrender.com/api/v1',
   firebase: {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID",
-    measurementId: "YOUR_MEASUREMENT_ID"
+    apiKey: "AIzaSyALPFX9F25wE-ebeeerKLwnYwbDVt7gjV0",
+    authDomain: "mix-ecommerce-db.firebaseapp.com",
+    projectId: "mix-ecommerce-db",
+    storageBucket: "mix-ecommerce-db.firebasestorage.app",
+    messagingSenderId: "137140162971",
+    appId: "1:137140162971:web:50cd45aaaef4836939913e",
+    measurementId: "G-VCV9W9HB9Q"
   },
   stripePublicKey: 'pk_test_YOUR_STRIPE_KEY'
 };
+
