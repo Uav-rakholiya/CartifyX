@@ -4,62 +4,47 @@ import { db } from '../config/firebase.config';
 
 export const getAllProducts = async (req: Request, res: Response) => {
     try {
-        console.log('getAllProducts Query:', req.query); // Debug log
-        const keywordParam = req.query.keyword;
-        let queryFilter: any = {};
+        const snapshot = await db.collection('products').get();
 
-        // Feature: Support fetching multiple explicit IDs
-        if (req.query.ids && typeof req.query.ids === 'string') {
-            const idsList = req.query.ids.split(',');
-            queryFilter._id = { $in: idsList };
-        }
+        const products = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
 
-        // Feature: Target specific category directly
-        if (req.query.category && typeof req.query.category === 'string') {
-            queryFilter.category = req.query.category;
-        }
-        // Original Feature: Keyword filtering
-        else if (typeof keywordParam === 'string') {
-            queryFilter = {
-                $or: [
-                    { name: { $regex: keywordParam, $options: 'i' } },
-                    { description: { $regex: keywordParam, $options: 'i' } },
-                    { category: { $regex: keywordParam, $options: 'i' } }
-                ]
-            };
-        }
-
-        // Special case: If searching for "phone", exclude "headphones" if it's not explicitly asked for
-        if (typeof keywordParam === 'string' && keywordParam.toLowerCase() === 'phone') {
-            queryFilter.name = { $not: /headphones/i, ...queryFilter.name };
-        }
-
-        // Feature: Support limits
-        const limitParam = req.query.limit ? parseInt(req.query.limit as string) : 0; // 0 means no limit
-
-        const products = await Product.find(queryFilter).limit(limitParam).select('-__v');
         res.json({
             status: 'success',
             results: products.length,
             data: products
         });
     } catch (err) {
-        res.status(500).json({ message: (err as Error).message });
+        console.error(err);
+        res.status(500).json({
+            message: (err as Error).message
+        });
     }
 };
 
 export const getProductById = async (req: Request, res: Response) => {
     try {
-        const product = await Product.findById(req.params.id).select('-__v');
-        if (!product) {
-            return res.status(404).json({ message: 'Product not found' });
+        const doc = await db.collection('products').doc(req.params.id).get();
+
+        if (!doc.exists) {
+            return res.status(404).json({
+                message: 'Product not found'
+            });
         }
+
         res.json({
             status: 'success',
-            data: product
+            data: {
+                id: doc.id,
+                ...doc.data()
+            }
         });
     } catch (err) {
-        res.status(500).json({ message: (err as Error).message });
+        res.status(500).json({
+            message: (err as Error).message
+        });
     }
 };
 
