@@ -6,10 +6,16 @@ export const getAllProducts = async (req: Request, res: Response) => {
     try {
         const snapshot = await db.collection('products').get();
 
-        const products = snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        }));
+        const products = snapshot.docs.map(doc => {
+            const data = doc.data();
+
+            return {
+                id: doc.id,
+                _id: doc.id, // backward compatibility
+                name: data.name || data.title || '',
+                ...data
+            };
+        });
 
         res.json({
             status: 'success',
@@ -34,11 +40,15 @@ export const getProductById = async (req: Request, res: Response) => {
             });
         }
 
+        const data = doc.data();
+
         res.json({
             status: 'success',
             data: {
                 id: doc.id,
-                ...doc.data()
+                _id: doc.id,
+                name: data?.name || data?.title || '',
+                ...data
             }
         });
     } catch (err) {
