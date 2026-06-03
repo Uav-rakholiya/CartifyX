@@ -32,8 +32,20 @@ app.use(helmet());
 app.use(compression());
 
 // CORS configuration
+const allowedOrigins = (process.env.CORS_ORIGIN || "https://cartify-x.vercel.app")
+  .split(',')
+  .map(o => o.trim());
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || "https://cartifyx-e0boakaqkq-evolvyn.vercel.app",
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.warn(`CORS blocked request from origin: ${origin}`);
+      callback(null, false);
+    }
+  },
   credentials: true
 }));
 
