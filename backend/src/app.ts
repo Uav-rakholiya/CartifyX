@@ -45,21 +45,20 @@ app.use(cors({
   origin: (origin, callback) => {
     console.log('Incoming Origin:', origin);
 
-    // Allow requests with no origin
     if (!origin) {
+      console.log('Request without origin');
       return callback(null, true);
     }
 
     if (allowedOrigins.includes(origin)) {
+      console.log('Allowed Origin:', origin);
       return callback(null, true);
     }
 
-    console.error(`CORS BLOCKED: ${origin}`);
+    console.log('Blocked Origin:', origin);
     return callback(new Error(`Origin ${origin} not allowed by CORS`));
   },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  credentials: true
 }));
 
 // Rate limiting
