@@ -1,15 +1,10 @@
 /**
- * Migration Script: Firestore → MongoDB Atlas
+ * Migration Script: Firestore → MongoDB Atlas (FIXED)
  * 
- * This script reads all products (and optionally users) from your Firebase Firestore
- * and inserts them into MongoDB Atlas so that the backend API can serve them.
- * 
- * Usage:
- *   npx ts-node scripts/migrate-firestore-to-mongo.ts
- * 
- * Prerequisites:
- *   - MONGO_URI must be set in .env (pointing to MongoDB Atlas)
- *   - Firebase env vars must be set in .env
+ * Handles field name differences:
+ *   Firestore `title` → MongoDB `name`
+ *   Firestore `ratingCount` → MongoDB `reviews`
+ *   Firestore `images` → MongoDB `additionalImages`
  */
 
 import dotenv from 'dotenv';
@@ -41,7 +36,7 @@ if (!admin.apps.length) {
 
 const firestoreDb = admin.firestore();
 
-// --- MongoDB Models (inline to avoid import issues) ---
+// --- MongoDB Product Model ---
 const ProductSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
@@ -88,15 +83,14 @@ const ProductSchema = new mongoose.Schema({
 
 const Product = mongoose.model('Product', ProductSchema);
 
-// --- Migration Functions ---
-
+// --- Migration ---
 async function migrateProducts() {
   console.log('\n📦 Migrating Products from Firestore → MongoDB...');
   
   const snapshot = await firestoreDb.collection('products').get();
   
   if (snapshot.empty) {
-    console.log('⚠️  No products found in Firestore. Nothing to migrate.');
+    console.log('⚠️  No products found in Firestore.');
     return 0;
   }
 
@@ -109,41 +103,63 @@ async function migrateProducts() {
   for (const doc of snapshot.docs) {
     const data = doc.data();
     
+    // Map Firestore field names → MongoDB field names
+    const productName = data.name || data.title;  // Firestore uses "title"
+    
+    if (!productName) {
+      console.log(`   ❌ Skipped doc ${doc.id}: no name or title field`);
+      errors++;
+      continue;
+    }
+
     try {
-      // Check if product already exists by name (to avoid duplicates)
-      const existing = await Product.findOne({ name: data.name });
+      // Check if product already exists
+      const existing = await Product.findOne({ name: productName });
       if (existing) {
-        console.log(`   ⏭️  Skipped (already exists): ${data.name}`);
+        console.log(`   ⏭️  Skipped (already exists): ${productName}`);
         skipped++;
         continue;
       }
 
-      // Clean the data: remove Firestore-specific fields
-      const cleanData: any = { ...data };
-      delete cleanData._id;       // Remove Firestore doc ID field if present
-      delete cleanData.__v;       // Remove version key if present
-      delete cleanData.mongoId;   // Remove any mongo reference
-
-      // Handle Firestore Timestamps → JS Dates
-      if (cleanData.createdAt && cleanData.createdAt._seconds) {
-        cleanData.createdAt = new Date(cleanData.createdAt._seconds * 1000);
-      }
-      if (cleanData.updatedAt && cleanData.updatedAt._seconds) {
-        cleanData.updatedAt = new Date(cleanData.updatedAt._seconds * 1000);
+      // Handle Firestore Timestamps
+      let createdAt = new Date();
+      if (data.createdAt && data.createdAt._seconds) {
+        createdAt = new Date(data.createdAt._seconds * 1000);
       }
 
-      // Ensure required fields have defaults
-      if (!cleanData.description) cleanData.description = cleanData.name;
-      if (!cleanData.imageUrl) cleanData.imageUrl = 'https://via.placeholder.com/300';
-      if (!cleanData.category) cleanData.category = 'Uncategorized';
-      if (cleanData.stock === undefined) cleanData.stock = 10;
+      // Build the MongoDB document with correct field mapping
+      const mongoProduct = {
+        name: productName,
+        description: data.description || productName,
+        price: data.price || 0,
+        imageUrl: data.imageUrl || 'https://via.placeholder.com/300',
+        category: data.category || 'Uncategorized',
+        stock: data.stock ?? 10,
+        rating: data.rating || 0,
+        reviews: data.ratingCount || data.reviews || 0,   // Firestore uses "ratingCount"
+        featured: data.featured || false,
+        originalPrice: data.originalPrice,
+        inStock: data.stock > 0,
+        onSale: data.onSale || false,
+        sizes: data.sizes || [],
+        additionalImages: data.images || data.additionalImages || [],  // Firestore uses "images"
+        vendor: data.vendor || 'CartifyX',
+        productType: data.productType || 'Standard',
+        viewCount: data.viewCount || 0,
+        soldCount: data.soldCount || 0,
+        fullDescription: data.fullDescription,
+        specifications: data.specifications || {},
+        features: data.features || [],
+        material: data.material,
+        createdAt: createdAt
+      };
 
-      const product = new Product(cleanData);
+      const product = new Product(mongoProduct);
       await product.save();
-      console.log(`   ✅ Migrated: ${data.name} (₹${data.price})`);
+      console.log(`   ✅ Migrated: ${productName} (₹${data.price})`);
       migrated++;
     } catch (err: any) {
-      console.error(`   ❌ Error migrating "${data.name}": ${err.message}`);
+      console.error(`   ❌ Error migrating "${productName}": ${err.message}`);
       errors++;
     }
   }
@@ -156,113 +172,25 @@ async function migrateProducts() {
   return migrated;
 }
 
-async function migrateUsers() {
-  console.log('\n👤 Migrating Users from Firestore → MongoDB...');
-  
-  const UserSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    passwordHash: { type: String, required: true },
-    phone: { type: String },
-    role: { type: String, enum: ['user', 'admin'], default: 'user' },
-    addresses: [{
-      street: String, city: String, state: String,
-      postalCode: String, country: String,
-      isDefault: { type: Boolean, default: false }
-    }],
-    wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product', default: [] }]
-  }, { timestamps: true });
-
-  // Use existing model or create new one
-  const User = mongoose.models.User || mongoose.model('User', UserSchema);
-
-  const snapshot = await firestoreDb.collection('users').get();
-  
-  if (snapshot.empty) {
-    console.log('⚠️  No users found in Firestore. Nothing to migrate.');
-    return 0;
-  }
-
-  console.log(`   Found ${snapshot.size} users in Firestore`);
-  
-  let migrated = 0;
-  let skipped = 0;
-
-  for (const doc of snapshot.docs) {
-    const data = doc.data();
-    
-    try {
-      const existing = await User.findOne({ email: data.email });
-      if (existing) {
-        console.log(`   ⏭️  Skipped (already exists): ${data.email}`);
-        skipped++;
-        continue;
-      }
-
-      const cleanData: any = {
-        name: data.name || data.email?.split('@')[0] || 'User',
-        email: data.email,
-        passwordHash: data.passwordHash || 'FIREBASE_AUTH_USER',
-        phone: data.phone || '',
-        role: data.role || 'user'
-      };
-
-      if (cleanData.createdAt && cleanData.createdAt._seconds) {
-        cleanData.createdAt = new Date(cleanData.createdAt._seconds * 1000);
-      }
-
-      const user = new User(cleanData);
-      await user.save();
-      console.log(`   ✅ Migrated: ${data.email}`);
-      migrated++;
-    } catch (err: any) {
-      console.error(`   ❌ Error migrating "${data.email}": ${err.message}`);
-    }
-  }
-
-  console.log(`\n📊 Users Migration Summary:`);
-  console.log(`   ✅ Migrated: ${migrated}`);
-  console.log(`   ⏭️  Skipped:  ${skipped}`);
-  
-  return migrated;
-}
-
 // --- Main ---
 async function main() {
-  console.log('🚀 CartifyX Firestore → MongoDB Migration');
-  console.log('==========================================\n');
+  console.log('🚀 CartifyX Firestore → MongoDB Migration (Fixed)');
+  console.log('==================================================\n');
 
-  // Validate env
   const mongoUri = process.env.MONGO_URI;
   if (!mongoUri) {
-    console.error('❌ MONGO_URI is not set in .env! Cannot connect to MongoDB Atlas.');
-    console.error('   Please add your MongoDB Atlas connection string to backend/.env');
+    console.error('❌ MONGO_URI is not set in .env!');
     process.exit(1);
   }
 
-  // Connect to MongoDB Atlas
   console.log('🔌 Connecting to MongoDB Atlas...');
-  try {
-    await mongoose.connect(mongoUri);
-    console.log('✅ MongoDB Atlas connected!\n');
-  } catch (err: any) {
-    console.error(`❌ MongoDB connection failed: ${err.message}`);
-    process.exit(1);
-  }
+  await mongoose.connect(mongoUri);
+  console.log('✅ MongoDB Atlas connected!\n');
 
-  // Run migrations
-  const productCount = await migrateProducts();
-  const userCount = await migrateUsers();
+  await migrateProducts();
 
-  console.log('\n==========================================');
-  console.log('🏁 Migration Complete!');
-  console.log(`   Products migrated: ${productCount}`);
-  console.log(`   Users migrated: ${userCount}`);
-  console.log('==========================================\n');
-
-  // Verify
   const totalProducts = await Product.countDocuments();
-  console.log(`📈 Total products now in MongoDB: ${totalProducts}`);
+  console.log(`\n📈 Total products now in MongoDB: ${totalProducts}`);
 
   await mongoose.disconnect();
   process.exit(0);
