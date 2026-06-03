@@ -171,9 +171,13 @@ export const firebaseSocialLogin = async (req: Request, res: Response) => {
                 res.json({ token, user: { id: user.id, name: user.name, email: user.email, role: user.role } });
             }
         );
-    } catch (err) {
-        console.error('Social login error:', (err as Error).message);
-        res.status(401).json({ message: 'Invalid social authentication token' });
+    } catch (err: any) {
+        console.error('Social login error:', err);
+
+        return res.status(401).json({
+            message: 'Invalid social authentication token',
+            error: err?.message
+        });
     }
 };
 
