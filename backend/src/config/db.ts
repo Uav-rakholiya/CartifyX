@@ -1,11 +1,16 @@
 import mongoose from 'mongoose';
 
 export const connectDB = async () => {
+    const uri = process.env.MONGO_URI;
+    if (!uri) {
+        console.error('❌ MONGO_URI environment variable is not set. Exiting.');
+        process.exit(1);
+    }
     try {
-        const conn = await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/urbancart');
-        console.log(`MongoDB Connected: ${conn.connection.host}`);
+        const conn = await mongoose.connect(uri);
+        console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
-        console.error(`Error: ${(error as Error).message}`);
+        console.error(`❌ MongoDB Connection Error: ${(error as Error).message}`);
         process.exit(1);
     }
 };

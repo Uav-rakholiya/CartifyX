@@ -33,7 +33,7 @@ app.use(compression());
 
 // CORS configuration
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:4200',
+  origin: process.env.CORS_ORIGIN || "https://cartifyx-e0boakaqkq-evolvyn.vercel.app",
   credentials: true
 }));
 
