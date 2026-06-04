@@ -71,7 +71,11 @@ export const addToCart = async (req: Request, res: Response) => {
             data: cartData
         });
     } catch (err) {
-        res.status(500).json({ message: (err as Error).message });
+        console.error('ADD TO CART ERROR:', err);
+
+        res.status(500).json({
+            message: (err as Error).message
+        });
     }
 };
 
