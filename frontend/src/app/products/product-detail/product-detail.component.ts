@@ -479,7 +479,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
           console.log('✅ warranty:', data.warranty);
           console.log('✅ returnPolicy:', data.returnPolicy);
           console.log('✅ additionalAttributes:', data.additionalAttributes);
-          
+
           this.product.set(data);
           this.currentImage.set(data.imageUrl); // Initialize main image
           this.updateMetaTags(data);
@@ -626,14 +626,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   setMainImage(imgUrl: string) {
     this.currentImage.set(imgUrl);
-    
+
     // Update the main product image url temporarily for display
     const current = this.product();
-    if(current) {
-         this.product.set({
-             ...current,
-             imageUrl: imgUrl
-         });
+    if (current) {
+      this.product.set({
+        ...current,
+        imageUrl: imgUrl
+      });
     }
   }
 
@@ -644,14 +644,17 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   addToCart() {
     if (this.product()) {
       if (this.product()?.sizes?.length && !this.selectedSize()) {
-          alert('Please select a size first.');
-          return;
+        alert('Please select a size first.');
+        return;
       }
 
-      // @ts-ignore
-      const productId = this.product()._id || this.product().id; // Handle both id formats
+      const productId = this.product()!._id || this.product()!.id;
+      if (!productId) {
+        alert('Product ID not found.');
+        return;
+      }
+
       this.cartService.addToCart(productId, this.quantity()).subscribe(() => {
-        // Here we could add a toast notification
         alert(`Added ${this.quantity()} item(s) to cart successfully!`);
       });
     }
@@ -676,11 +679,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   getSpecsAsArray(): Array<{ label: string; value: string }> {
     const specs = this.product()?.specifications;
     if (!specs) return [];
-    
+
     if (Array.isArray(specs)) {
       return specs;
     }
-    
+
     return Object.entries(specs).map(([key, value]) => ({
       label: key,
       value: String(value)

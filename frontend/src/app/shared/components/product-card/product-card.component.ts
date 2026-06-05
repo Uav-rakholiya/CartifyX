@@ -131,13 +131,13 @@ export class ProductCardComponent {
             verticalPosition: 'top',
             panelClass: ['bg-green-600', 'text-white', 'font-bold']
           });
-          
+
           snackBarRef.onAction().subscribe(() => {
-             this.router.navigate(['/cart']);
+            this.router.navigate(['/cart']);
           });
         },
         error: () => {
-           this.snackBar.open('Error adding to cart.', 'Close', {
+          this.snackBar.open('Error adding to cart.', 'Close', {
             duration: 3000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
@@ -154,14 +154,14 @@ export class ProductCardComponent {
     const productId = this.product._id || this.product.id;
     if (productId) {
       this.wishlistService.toggleWishlist(productId).subscribe(() => {
-          const isNowInWishlist = this.isInWishlist();
-          const message = isNowInWishlist ? `${this.product.name} added to wishlist!` : `${this.product.name} removed from wishlist`;
-          this.snackBar.open(message, 'Close', {
-            duration: 2000,
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-            panelClass: isNowInWishlist ? ['bg-red-500', 'text-white', 'font-bold'] : ['bg-dark-800', 'text-white']
-          });
+        const isNowInWishlist = this.isInWishlist();
+        const message = isNowInWishlist ? `${this.product.name} added to wishlist!` : `${this.product.name} removed from wishlist`;
+        this.snackBar.open(message, 'Close', {
+          duration: 2000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: isNowInWishlist ? ['bg-red-500', 'text-white', 'font-bold'] : ['bg-dark-800', 'text-white']
+        });
       });
     }
   }
